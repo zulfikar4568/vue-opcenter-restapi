@@ -1,34 +1,52 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { ref, reactive, onBeforeMount } from 'vue';
 import Form from './components/FormFactory.vue';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { IFactory, getListFactory, deleteFactory } from './factory.service';
+import { notification } from 'ant-design-vue';
 
-interface DataItem {
-  Name: string;
-  Description: string;
-}
-const data: DataItem[] = [
-  {
-    Name: 'Factory A',
-    Description: 'This is a factory',
-  },
-  {
-    Name: 'Factory B',
-    Description: 'This is a factory',
-  },
-];
-
+// state
+const data = ref<IFactory[]>();
 const isCreate = ref<boolean>(false);
 const open = ref<boolean>(false);
-const showDrawer = (create: boolean) => {
+
+// Before mount load the data
+onBeforeMount( async () => {
+  await loadData();
+})
+
+// Drawer for form
+const showDrawer = (create: boolean, item?: IFactory) => {
   open.value = true;
   isCreate.value = create;
+  if (item) {
+    detailData.Name = item.Name;
+    detailData.Description = item.Description;
+  }
 };
 
-const detailData = reactive<DataItem>({
+// Details the data for form
+const detailData = reactive<IFactory>({
   Name: '',
   Description: '',
 })
+
+// delete the item
+const deleteItem = async (name: string) => {
+  const message = await deleteFactory(name)
+  if (message) {
+    notification.success({
+      message,
+      placement: 'topRight',
+    });
+    loadData();
+  }
+}
+
+const loadData = async () => {
+  data.value = await getListFactory();
+  open.value = false;
+}
 </script>
 
 <template>
@@ -39,18 +57,18 @@ const detailData = reactive<DataItem>({
       <template #renderItem="{ item }">
         <a-list-item>
           <template #actions>
-            <a-button @click="showDrawer(false)" key="list-loadmore-edit" type="primary">
+            <a-button v-if="item.Name != 'PT. PCI ELEKTRONIK INTERNATIONAL'" @click="showDrawer(false, item)" key="list-loadmore-edit" type="primary">
               <template #icon>
                 <EditOutlined />
               </template>
             </a-button>
-            <a-button key="list-loadmore-delete" type="primary" danger>
+            <a-button v-if="item.Name != 'PT. PCI ELEKTRONIK INTERNATIONAL'" @click="deleteItem(item.Name)" key="list-loadmore-delete" type="primary" danger>
               <template #icon>
                 <DeleteOutlined />
               </template>
             </a-button>
           </template>
-          <a-list-item-meta :description="item.Description">
+          <a-list-item-meta :description="item.Description ? item.Description : 'Undefined'">
             <template #title>
               <b>{{ item.Name }}</b>
             </template>
@@ -64,6 +82,6 @@ const detailData = reactive<DataItem>({
     :title="isCreate ? 'Create Factory' : 'Update Factory'"
     placement="left"
   >
-    <Form :name="detailData.Name" :title="isCreate ? 'Create Factory' : 'Update Factory'" :description="detailData.Description" :is-create="isCreate" />
+    <Form @is-submit-success="loadData" :name="detailData.Name" :title="isCreate ? 'Create Factory' : 'Update Factory'" :description="detailData.Description" :is-create="isCreate" />
   </a-drawer>
 </template>

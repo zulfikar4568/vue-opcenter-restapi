@@ -8,18 +8,20 @@
   >
     <a-form-item
       label="Factory Name"
-      name="name"
+      name="Name"
       :rules="[{ required: true, message: 'Please input factory name!' }]"
     >
-      <a-input v-model:value="data.name" />
+      <a-input v-model:value="data.Name" />
     </a-form-item>
 
     <a-form-item
       label="Description"
-      name="description"
-      :rules="[{ required: false, message: 'Please input factory description!' }]"
+      name="Description"
+      :rules="[
+        { required: false, message: 'Please input factory description!' },
+      ]"
     >
-      <a-input v-model:value="data.description" />
+      <a-input v-model:value="data.Description" />
     </a-form-item>
 
     <a-form-item>
@@ -29,6 +31,10 @@
 </template>
 <script lang="ts" setup>
 import { reactive } from 'vue';
+import { IFactory, createFactory, updateFactory } from '../factory.service';
+import { notification } from 'ant-design-vue';
+
+const emit = defineEmits(['isSubmitSuccess'])
 
 const props = defineProps({
   title: {
@@ -46,15 +52,28 @@ const props = defineProps({
   isCreate: {
     type: Boolean,
     required: true,
+  },
+});
+
+const data = reactive<IFactory>({
+  Name: props.name,
+  Description: props.description ? props.description : '',
+});
+
+const onFinish = async (values: IFactory) => {
+  let message: string = '';
+  if (props.isCreate) {
+    message = await createFactory(values);
+  } else {
+    message = await updateFactory(props.name, values);
   }
-})
 
-const data = reactive({
-  name: props.name,
-  description: props.description
-})
-
-const onFinish = (values: any) => {
-  console.log('Success:', values);
+  if (message) {
+    notification.success({
+      message,
+      placement: 'topRight',
+    });
+    emit('isSubmitSuccess');
+  }
 };
 </script>
