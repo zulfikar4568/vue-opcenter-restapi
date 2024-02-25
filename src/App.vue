@@ -1,87 +1,64 @@
-<script setup lang="ts">
-import { ref, reactive, onBeforeMount } from 'vue';
-import Form from './components/FormFactory.vue';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-import { IFactory, getListFactory, deleteFactory } from './factory.service';
-import { notification } from 'ant-design-vue';
-
-// state
-const data = ref<IFactory[]>();
-const isCreate = ref<boolean>(false);
-const open = ref<boolean>(false);
-
-// Before mount load the data
-onBeforeMount( async () => {
-  await loadData();
-})
-
-// Drawer for form
-const showDrawer = (create: boolean, item?: IFactory) => {
-  open.value = true;
-  isCreate.value = create;
-  if (item) {
-    detailData.Name = item.Name;
-    detailData.Description = item.Description;
-  }
-};
-
-// Details the data for form
-const detailData = reactive<IFactory>({
-  Name: '',
-  Description: '',
-})
-
-// delete the item
-const deleteItem = async (name: string) => {
-  const message = await deleteFactory(name)
-  if (message) {
-    notification.success({
-      message,
-      placement: 'topRight',
-    });
-    loadData();
-  }
-}
-
-const loadData = async () => {
-  data.value = await getListFactory();
-  open.value = false;
-}
-</script>
-
 <template>
-  <div class="container">
-    <a-divider>Factory</a-divider>
-    <a-button @click="showDrawer(true)" type="primary" class="pull-right">Create</a-button>
-    <a-list item-layout="horizontal" :data-source="data">
-      <template #renderItem="{ item }">
-        <a-list-item>
-          <template #actions>
-            <a-button v-if="item.Name != 'PT. PCI ELEKTRONIK INTERNATIONAL'" @click="showDrawer(false, item)" key="list-loadmore-edit" type="primary">
-              <template #icon>
-                <EditOutlined />
-              </template>
-            </a-button>
-            <a-button v-if="item.Name != 'PT. PCI ELEKTRONIK INTERNATIONAL'" @click="deleteItem(item.Name)" key="list-loadmore-delete" type="primary" danger>
-              <template #icon>
-                <DeleteOutlined />
-              </template>
-            </a-button>
-          </template>
-          <a-list-item-meta :description="item.Description ? item.Description : 'Undefined'">
-            <template #title>
-              <b>{{ item.Name }}</b>
-            </template>
-          </a-list-item-meta>
-        </a-list-item>
-      </template>
-    </a-list>
-  </div>
-  <a-drawer
-    v-model:open="open"
-    :title="isCreate ? 'Create Factory' : 'Update Factory'"
-    placement="left"
-  >
-    <Form @is-submit-success="loadData" :name="detailData.Name" :title="isCreate ? 'Create Factory' : 'Update Factory'" :description="detailData.Description" :is-create="isCreate" />
-  </a-drawer>
+  <a-layout>
+    <a-layout-sider
+      id="layout-sider"
+      v-model:collapsed="collapsed"
+      :trigger="null"
+      collapsible
+    >
+      <div class="close-sidebar" @click="() => (collapsed = !collapsed)">
+        <CloseOutlined />
+      </div>
+      
+      <div class="text-center">
+        <h1 class="full">Siemens</h1>
+        <h1 class="collapse">S</h1>
+      </div>
+      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+        <a-menu-item key="1">
+          <ApartmentOutlined />
+          <span>Factory</span>
+        </a-menu-item>
+      </a-menu>
+    </a-layout-sider>
+    <a-layout id="layout-main">
+      <a-layout-header id="layout-header" style="background: #fff; padding: 0">
+        <a-menu
+          v-model:selectedKeys="selectedKeys"
+          theme="light"
+          mode="horizontal"
+          :style="{ lineHeight: '64px', marginLeft: '20px' }"
+        >
+          <a-menu-item id="toggle" @click="() => (collapsed = !collapsed)">
+            <menu-unfold-outlined
+              v-if="collapsed"
+              class="trigger"
+              aria-disabled="true"
+            />
+            <menu-fold-outlined
+              v-else
+              class="trigger"
+              style="margin-left: 18px"
+            />
+          </a-menu-item>
+        </a-menu>
+      </a-layout-header>
+      <a-layout-content id="layout-content">
+        <Factory />
+      </a-layout-content>
+    </a-layout>
+  </a-layout>
 </template>
+
+<script setup lang="ts">
+import Factory from './views/Factory.vue';
+import { ref } from 'vue';
+import {
+  ApartmentOutlined,
+  CloseOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+} from '@ant-design/icons-vue';
+const selectedKeys = ref<string[]>(['1']);
+const collapsed = ref<boolean>(true);
+</script>
