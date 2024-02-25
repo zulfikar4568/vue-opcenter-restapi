@@ -65,5 +65,5 @@ import {
   HomeOutlined,
 } from '@ant-design/icons-vue';
 const selectedKeys = ref<string[]>(['2']);
-const collapsed = ref<boolean>(true);
+const collapsed = ref<boolean>(false);
 </script>

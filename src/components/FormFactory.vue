@@ -30,7 +30,7 @@
   </a-form>
 </template>
 <script lang="ts" setup>
-import { reactive } from 'vue';
+import { reactive, watch } from 'vue';
 import { IFactory, createFactory, updateFactory } from '../factory.service';
 import { notification } from 'ant-design-vue';
 
@@ -60,6 +60,11 @@ const data = reactive<IFactory>({
   Description: props.description ? props.description : '',
 });
 
+watch(props, (current) => {
+  data.Name = current.name;
+  data.Description = current.description ? current.description : '';
+})
+
 const onFinish = async (values: IFactory) => {
   let message: string = '';
   if (props.isCreate) {
@@ -74,6 +79,8 @@ const onFinish = async (values: IFactory) => {
       placement: 'topRight',
     });
     emit('isSubmitSuccess');
+    data.Name = '';
+    data.Description = '';
   }
 };
 </script>

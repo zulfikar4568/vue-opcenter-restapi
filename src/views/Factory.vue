@@ -15,21 +15,25 @@ onBeforeMount( async () => {
   await loadData();
 })
 
-// Drawer for form
-const showDrawer = (create: boolean, item?: IFactory) => {
-  open.value = true;
-  isCreate.value = create;
-  if (item) {
-    detailData.Name = item.Name;
-    detailData.Description = item.Description;
-  }
-};
-
 // Details the data for form
 const detailData = reactive<IFactory>({
   Name: '',
   Description: '',
 })
+
+
+// Drawer for form
+const showDrawer = (create: boolean, item?: IFactory) => {
+  if (item) {
+    detailData.Name = item.Name;
+    detailData.Description = item.Description;
+  } else {
+    detailData.Name = '';
+    detailData.Description = '';
+  }
+  open.value = true;
+  isCreate.value = create;
+};
 
 // delete the item
 const deleteItem = async (name: string) => {
