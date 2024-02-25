@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, onBeforeMount } from 'vue';
 import Form from '../components/FormFactory.vue';
-import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons-vue';
 import { IFactory, getListFactory, deleteFactory } from '../factory.service';
 import { notification } from 'ant-design-vue';
 
@@ -51,8 +51,15 @@ const loadData = async () => {
 
 <template>
   <div class="container">
-    <a-divider>Factory</a-divider>
-    <a-button @click="showDrawer(true)" type="primary" class="pull-right">Create</a-button>
+    <a-breadcrumb>
+      <a-breadcrumb-item>Home</a-breadcrumb-item>
+      <a-breadcrumb-item>Factory</a-breadcrumb-item>
+    </a-breadcrumb>
+    <a-button @click="showDrawer(true)" type="primary">
+      <template #icon>
+        <PlusOutlined />
+      </template>Create
+    </a-button>
     <a-list item-layout="horizontal" :data-source="data">
       <template #renderItem="{ item }">
         <a-list-item>

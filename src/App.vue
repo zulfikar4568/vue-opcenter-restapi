@@ -16,6 +16,10 @@
       </div>
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="1">
+          <HomeOutlined />
+          <span>Home</span>
+        </a-menu-item>
+        <a-menu-item key="2">
           <ApartmentOutlined />
           <span>Factory</span>
         </a-menu-item>
@@ -58,7 +62,8 @@ import {
   CloseOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
+  HomeOutlined,
 } from '@ant-design/icons-vue';
-const selectedKeys = ref<string[]>(['1']);
+const selectedKeys = ref<string[]>(['2']);
 const collapsed = ref<boolean>(true);
 </script>

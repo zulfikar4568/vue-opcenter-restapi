@@ -1,12 +1,3 @@
 @import './dashboard';
-
-.container {
-  padding: 20px;
-}
-
-.pull-right {
-  display: flex;
-  justify-content: flex-end;
-  margin-left: auto;
-  margin-right: 0;
-}
+@import './views/factory';
+@import './global';
