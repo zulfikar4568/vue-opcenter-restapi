@@ -1,0 +1,18 @@
+.card-menu {
+  border: 1px solid #137e7e;
+  .ant-card-body {
+    background: #137e7e;
+
+    .ant-card-meta {
+      .ant-card-meta-detail {
+        .ant-card-meta-title, .ant-card-meta-description {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.card-menu:hover {
+  border: 1px solid #137e7e;
+}
