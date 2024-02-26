@@ -21,7 +21,7 @@ defineProps({
 </script>
 <template>
   <router-link :to="link" custom v-slot="{ navigate, href }">
-    <a-card hoverable style="width: 240px" class="card-menu" @click="navigate" :href="href">
+    <a-card hoverable style="width: 330px" class="card-menu" @click="navigate" :href="href">
       <template #cover>
         <img alt="" style="padding: 30px" :src="imgUrl" />
       </template>
