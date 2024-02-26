@@ -17,37 +17,50 @@
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <router-link to="/" custom v-slot="{ navigate, href }">
           <a-menu-item key="1" @click="navigate" :href="href">
-            <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://cdn-icons-png.flaticon.com/512/25/25694.png"/>
+            </span>
             <span>Home</span>
           </a-menu-item>
         </router-link>
         <router-link to="/factory" custom v-slot="{ navigate, href }">
           <a-menu-item key="2" @click="navigate" :href="href">
-            <img src="https://cdn-icons-png.flaticon.com/512/3399/3399269.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://cdn-icons-png.flaticon.com/512/3399/3399269.png"/>
+            </span>
+            <!-- <menu-unfold-outlined /> -->
             <span>Factory</span>
           </a-menu-item>
         </router-link>
         <router-link to="/" custom v-slot="{ navigate, href }">
           <a-menu-item key="3" @click="navigate" :href="href">
-            <img src="https://cdn-icons-png.flaticon.com/512/2652/2652218.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://cdn-icons-png.flaticon.com/512/2652/2652218.png"/>
+            </span>
             <span>Products</span>
           </a-menu-item>
         </router-link>
         <router-link to="/" custom v-slot="{ navigate, href }">
           <a-menu-item key="4" @click="navigate" :href="href">
-            <img src="https://icons.veryicon.com/png/o/internet--web/industrial-internet/bom-1.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://icons.veryicon.com/png/o/internet--web/industrial-internet/bom-1.png"/>
+            </span>
             <span>BOM</span>
           </a-menu-item>
         </router-link>
         <router-link to="/" custom v-slot="{ navigate, href }">
           <a-menu-item key="5" @click="navigate" :href="href">
-            <img src="https://cdn-icons-png.freepik.com/512/1574/1574572.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://cdn-icons-png.freepik.com/512/1574/1574572.png"/>
+            </span>
             <span>Workflow</span>
           </a-menu-item>
         </router-link>
         <router-link to="/" custom v-slot="{ navigate, href }">
           <a-menu-item key="6" @click="navigate" :href="href">
-            <img src="https://cdn-icons-png.flaticon.com/512/1186/1186305.png"/>
+            <span class="anticon anticon-menu-unfold">
+              <img src="https://cdn-icons-png.flaticon.com/512/1186/1186305.png"/>
+            </span>
             <span>Resurce</span>
           </a-menu-item>
         </router-link>
