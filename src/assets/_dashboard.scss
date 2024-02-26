@@ -52,12 +52,24 @@
       // Styling for Color Menu List
       .ant-menu.ant-menu-dark {
         background: none;
+
         .ant-menu-item {
           color: #fff;
+          margin-left: 0;
         }
         .ant-menu-item-selected, .ant-menu-item-active {
           background-color: #137e7e;
           color: white;
+        }
+
+        .ant-menu-title-content {
+          img {
+            width: 24px;
+            -webkit-filter: invert(1);
+            filter: invert(100%);
+            margin-right: 10px;
+            display: inline;
+          }
         }
       }
 
