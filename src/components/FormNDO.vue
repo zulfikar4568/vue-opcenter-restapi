@@ -7,9 +7,9 @@
     :layout="'vertical'"
   >
     <a-form-item
-      label="Factory Name"
+      :label="`${title} Name`"
       name="Name"
-      :rules="[{ required: true, message: 'Please input factory name!' }]"
+      :rules="[{ required: true, message: `Please input ${title} name!` }]"
     >
       <a-input v-model:value="data.Name" />
     </a-form-item>
@@ -18,7 +18,7 @@
       label="Description"
       name="Description"
       :rules="[
-        { required: false, message: 'Please input factory description!' },
+        { required: false, message: `Please input ${title} description!` },
       ]"
     >
       <a-input v-model:value="data.Description" />
@@ -31,7 +31,7 @@
 </template>
 <script lang="ts" setup>
 import { reactive, watch } from 'vue';
-import { IFactory, createFactory, updateFactory } from '../factory.service';
+import { INDO, create, update } from '../service/ndo.service';
 import { notification } from 'ant-design-vue';
 
 const emit = defineEmits(['isSubmitSuccess'])
@@ -53,9 +53,13 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  domainName: {
+    type: String,
+    required: true,
+  }
 });
 
-const data = reactive<IFactory>({
+const data = reactive<INDO>({
   Name: props.name,
   Description: props.description ? props.description : '',
 });
@@ -65,12 +69,12 @@ watch(props, (current) => {
   data.Description = current.description ? current.description : '';
 })
 
-const onFinish = async (values: IFactory) => {
+const onFinish = async (values: INDO) => {
   let message: string = '';
   if (props.isCreate) {
-    message = await createFactory(values);
+    message = await create(props.domainName, values);
   } else {
-    message = await updateFactory(props.name, values);
+    message = await update(props.domainName, props.name, values);
   }
 
   if (message) {
@@ -83,4 +87,4 @@ const onFinish = async (values: IFactory) => {
     data.Description = '';
   }
 };
-</script>
+</script>../service/ndo.service
