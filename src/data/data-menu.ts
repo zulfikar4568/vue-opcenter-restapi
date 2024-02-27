@@ -9,7 +9,7 @@ export const dataMenu = [
   {
     key: '2',
     name: 'Factory',
-    description: 'A Factory is any division, department, or group that is separated for accounting and reporting purposes. An enterprise can contain one or more factories',
+    description: 'A Factory is any division, department, or group that is separated for accounting and reporting purposes. It often represents a physical manufacturing building, but can also represent the company itself.',
     link: '/factory',
     img: 'https://cdn-icons-png.flaticon.com/512/3399/3399269.png'
   },
@@ -26,5 +26,12 @@ export const dataMenu = [
     description: 'Resources are part of the physical components in your manufacturing facility. They are the machines, equipment, and people involved in your manufacturing processes.',
     link: '/resource',
     img: 'https://cdn-icons-png.flaticon.com/512/1186/1186305.png'
+  },
+  {
+    key: '5',
+    name: 'Work Center',
+    description: 'A Work Center is a physical area or logical grouping where similar work is performed, such as packaging or quality inspections. Operations are assigned to work centers in each Operation definition.',
+    link: '/workcenter',
+    img: 'https://cdn-icons-png.freepik.com/512/157/157631.png'
   },
 ]

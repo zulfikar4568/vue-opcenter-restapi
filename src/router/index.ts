@@ -3,8 +3,18 @@ import Factory from '../views/Factory.vue';
 import Home from '../Home.vue';
 import Enterprise from '../views/Enterprise.vue';
 import Resource from '../views/Resource.vue';
+import WorkCenter from '../views/WorkCenter.vue';
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/workcenter',
+    name: 'workcenter',
+    component: WorkCenter,
+    meta: {
+      layout: 'dashboard-layout',
+      title: 'Work Center Modeling Page',
+    },
+  },
   {
     path: '/resource',
     name: 'resource',
