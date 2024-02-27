@@ -34,4 +34,11 @@ export const dataMenu = [
     link: '/workcenter',
     img: 'https://cdn-icons-png.freepik.com/512/157/157631.png'
   },
+  {
+    key: '5',
+    name: 'Operation',
+    description: 'An Operation is a manufacturing or processing point where inventory and production activities are tracked. An operation is referenced by a specification at a workflow step.',
+    link: '/operation',
+    img: 'https://cdn-icons-png.freepik.com/512/4149/4149659.png'
+  },
 ]

@@ -4,8 +4,18 @@ import Home from '../Home.vue';
 import Enterprise from '../views/Enterprise.vue';
 import Resource from '../views/Resource.vue';
 import WorkCenter from '../views/WorkCenter.vue';
+import Operation from '../views/Operation.vue';
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/operation',
+    name: 'operation',
+    component: Operation,
+    meta: {
+      layout: 'dashboard-layout',
+      title: 'Operation Modeling Page',
+    },
+  },
   {
     path: '/workcenter',
     name: 'workcenter',
